@@ -1,0 +1,19 @@
+[28-Oct-2019 06:10:32 UTC] PHP Parse error:  syntax error, unexpected '<', expecting end of file in phar:///usr/local/bin/wp/php/WP_CLI/SynopsisValidator.php on line 130
+[28-Oct-2019 07:46:34 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_sidebar() in /app/public/wp-content/themes/sample2/sidebar.php:147
+Stack trace:
+#0 /app/public/wp-includes/template.php(722): require_once()
+#1 /app/public/wp-includes/template.php(671): load_template('/app/public/wp-...', true)
+#2 /app/public/wp-includes/general-template.php(111): locate_template(Array, true)
+#3 /app/public/wp-content/themes/sample2/index.php(268): get_sidebar()
+#4 /app/public/wp-includes/template-loader.php(78): include('/app/public/wp-...')
+#5 /app/public/wp-blog-header.php(19): require_once('/app/public/wp-...')
+#6 /app/public/index.php(17): require('/app/public/wp-...')
+#7 {main}
+  thrown in /app/public/wp-content/themes/sample2/sidebar.php on line 147
+[28-Oct-2019 09:24:21 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function pagenate_links() in /app/public/wp-content/themes/sample2/index.php:94
+Stack trace:
+#0 /app/public/wp-includes/template-loader.php(78): include()
+#1 /app/public/wp-blog-header.php(19): require_once('/app/public/wp-...')
+#2 /app/public/index.php(17): require('/app/public/wp-...')
+#3 {main}
+  thrown in /app/public/wp-content/themes/sample2/index.php on line 94
