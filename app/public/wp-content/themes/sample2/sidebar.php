@@ -6,7 +6,7 @@
 	    <div class="widget-title">プロフィール</div>
 
 	    <div class="wprofile">
-	      <div class="wprofile-img"><img src="<?php echo get_template_directory_uri() ?>/img/profile.png" alt=""></div>
+	      <div class="wprofile-img"><img src="<?php echo get_template_directory_uri() ?>/img/noimg.png" alt=""></div>
 	      <div class="wprofile-content">
 	        <p>sample2のサイトです</p>
 	      </div>

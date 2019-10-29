@@ -15,7 +15,7 @@
   <meta property="og:url" content="https://example.com/">
   <meta property="og:image" content="https://example.com/img/ogp.png">
   <meta property="og:site_name" content="sample2">
-  <meta property="og:description" content="sample2">
+  <meta property="og:description" content="">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="./img/icon-home.png">

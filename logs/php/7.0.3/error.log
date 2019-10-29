@@ -17,3 +17,17 @@ Stack trace:
 #2 /app/public/index.php(17): require('/app/public/wp-...')
 #3 {main}
   thrown in /app/public/wp-content/themes/sample2/index.php on line 94
+[29-Oct-2019 08:52:35 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function the__archive_title() in /app/public/wp-content/themes/sample2/category.php:22
+Stack trace:
+#0 /app/public/wp-includes/template-loader.php(78): include()
+#1 /app/public/wp-blog-header.php(19): require_once('/app/public/wp-...')
+#2 /app/public/index.php(17): require('/app/public/wp-...')
+#3 {main}
+  thrown in /app/public/wp-content/themes/sample2/category.php on line 22
+[29-Oct-2019 09:06:54 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function has_post_thumnail() in /app/public/wp-content/themes/sample2/category.php:40
+Stack trace:
+#0 /app/public/wp-includes/template-loader.php(78): include()
+#1 /app/public/wp-blog-header.php(19): require_once('/app/public/wp-...')
+#2 /app/public/index.php(17): require('/app/public/wp-...')
+#3 {main}
+  thrown in /app/public/wp-content/themes/sample2/category.php on line 40

@@ -8,32 +8,27 @@
     <!-- primary -->
     <main id="primary">
 
-      <!-- breadcrumb -->
+      <!-- breadcrumb パンくず -->
       <div class="breadcrumb">
-        <span property="itemListElement" typeof="ListItem">
-          <a property="item" typeof="WebPage" href="/" class="home"><span property="name">ホーム</span></a>
-          <meta property="position" content="1">
-        </span>
-        <i class="fas fa-angle-right"></i>
-        <span class="current-item">カテゴリー名</span>
+        <?php
+        if (function_exists('bcn_display')) {
+          bcn_display();
+        }
+        ?>
       </div><!-- /breadcrumb -->
 
 
       <div class="archive-head m_description">
         <div class="archive-lead">ARCHIVE</div>
-        <h1 class="archive-title m_category">カテゴリー名</h1><!-- /archive-title -->
+        <h1 class="archive-title m_category"><?php the_archive_title(); ?></h1>
         <div class="archive-description">
-          <p>
-            カテゴリーの説明カテゴリーの説明カテゴリーの説明カテゴリーの説明カテゴリーの説明カテゴリーの説明カテゴリーの説明カテゴリーの説明カテゴリーの説明カテゴリーの説明カテゴリーの説明カテゴリーの説明カテゴリーの説明カテゴリーの説明カテゴリーの説明カテゴリーの説明カテゴリーの説明カテゴリーの説明カテゴリーの説明
-          </p>
-        </div><!-- /archive-description -->
+          <p><?php the_archive_description(); ?></p>
+        </div>
       </div><!-- /archive-head -->
 
 
       <!-- entries -->
-      <?php if (have_posts()) :
-        the_post(); ?>
-
+      <?php if (have_posts()) : ?>
         <div class="entries m_horizontal">
 
           <!-- entry-item -->
@@ -50,10 +45,10 @@
                 } ?>
               </div>
 
-              <!-- entry-item-body -->
               <div class="entry-item-body">
                 <div class="entry-item-meta">
-                  <?php $category = get_the_category();
+                  <?php
+                  $category = get_the_category();
                   $cat_name = $category[0]->cat_name;
                   if ($category[0]) {
                     echo '<div class="entry-item-tag">' . $cat_name . '</div>';
@@ -74,18 +69,21 @@
       <!-- pagenation -->
       <?php if (paginate_links()) : ?>
         <div class="pagenation">
-          <?php echo paginate_links(
-            array(
-              'end_size' => 0,
-              'mid_size' => 1,
-              'prev_next' => true,
-              'prev_text' => '<i class="fas fa-angle-left"></i>',
-              'next_text' => '<i class="fas fa-angle-right"></i>',
-            )
-          );
+          <?php
+          echo
+            paginate_links(
+              array(
+                'end_size' => 0,
+                'mid_size' => 1,
+                'prev_next' => true,
+                'prev_text' => '<i class="fas fa-angle-left"></i>',
+                'next_text' => '<i class="fas fa-angle-right"></i>',
+              )
+            );
           ?>
-        </div><!-- /pagenation -->
+        </div>
       <?php endif; ?>
+
 
     </main><!-- /primary -->
 
@@ -97,3 +95,13 @@
 
 <!-- footer-menu -->
 <?php get_footer(); ?>
+
+
+
+<!-- todo 
+
+bcn_display( )
+the_archive_title( )
+the_archive_description( ) 
+
+-->
