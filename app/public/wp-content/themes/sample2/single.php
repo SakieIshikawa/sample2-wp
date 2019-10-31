@@ -1,4 +1,3 @@
-<!-- header -->
 <?php get_header(); ?>
 
 <!-- content -->
@@ -8,292 +7,124 @@
     <!-- primary -->
     <main id="primary">
 
-      <!-- breadcrumb -->
-      <div class="breadcrumb">
-        <span property="itemListElement" typeof="ListItem">
-          <a property="item" typeof="WebPage" href="/" class="home"><span property="name">ホーム</span></a>
-          <meta property="position" content="1">
-        </span>
-        <i class="fas fa-angle-right"></i>
-        <span property="itemListElement" typeof="ListItem">
-          <a property="item" typeof="WebPage" href="#" class="taxonomy category"><span property="name">カテゴリ名</span></a>
-          <meta property="position" content="2">
-        </span>
-        <i class="fas fa-angle-right"></i>
-        <span class="post post-post current-item">記事のタイトルが入ります</span>
-      </div><!-- /breadcrumb -->
+      <!-- breadcrumb (パンくずplug) -->
+      <?php if (function_exists('bcn_display')) : ?>
+        <div class="breadcrumb">
+          <?php
+          if (function_exists('bcn_display')) {
+            bcn_display();
+          }
+          ?>
+        </div><!-- /breadcrumb -->
+      <?php endif; ?>
 
 
-      <!-- entry -->
-      <article class="entry">
+      <?php if (have_posts()) :   //もし投稿を表示できれば、一覧に存在している投稿ごとそれぞれに以下の処理を行う
+        while (have_posts()) :
+          the_post();
+          ?>
 
-        <!-- entry-header -->
-        <div class="entry-header">
-          <div class="entry-label"><a href="#">カテゴリ名</a></div><!-- /entry-item-tag -->
-          <h1 class="entry-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</h1><!-- /entry-title -->
+          <!-- entry -->
+          <article class="entry">
 
-          <!-- entry-meta -->
-          <div class="entry-meta">
-            <time class="entry-published" datetime="2019-01-01">公開日 2019/1/1</time>
-            <time class="entry-updated" datetime="2019-04-01">最終更新日 2019/4/1</time>
-          </div><!-- /entry-meta -->
+            <!-- entry-header -->
+            <div class="entry-header">
+              <?php
+              // カテゴリー１つ目の名前を表示
+              $category = get_the_category();
+              if ($category[0]) : ?>
+                <div class="entry-label">
+                  <a href="<?php echo esc_url(get_category_link($category[0]->term_id)); ?>">
+                    <?php echo $category[0]->cat_name; ?>
+                  </a></div>
+              <?php endif; ?>
+              <h1 class="entry-title"><?php the_title(); ?></h1>
 
-          <!-- entry-img -->
-          <div class="entry-img">
-            <img src="img/entry1.png" alt="">
-          </div><!-- /entry-img -->
+              <div class="entry-meta">
+                <time class="entry-published" datetime="<?php the_time('d'); ?>">公開日<?php the_time('Y年n月j日'); ?></time>
+                <!-- if文 (公開日と最終更新日が違った場合) -->
+                <?php if (get_the_modified_time('Y-m-d') !== get_the_time('Y-m-d')) : ?>
+                  <time class="entry-updated" datetime="<?php get_the_modified_time('d'); ?>">最終更新日<?php the_time('Y年n月j日'); ?></time>
+                <?php endif; ?>
+              </div>
 
-        </div><!-- /entry-header -->
+              <div class="entry-img">
+                <?php if (has_post_thumbnail()) {
+                  the_post_thumbnail('large');
+                } else {
+                  echo '<img src="' . esc_url(get_template_directory_uri()) . '/img/noimg.png" alt="">';
+                } ?>
+              </div>
+            </div><!-- /entry-header -->
 
-        <!-- entry-body -->
-        <div class="entry-body">
-          <p>
-            テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
-          </p>
+            <div class="entry-body">
+              <p><?php the_content(); ?></p>
+              <?php   //改ページを有効にするための記述
+              wp_link_pages(
+                array(
+                  'before' => '<nav class="entry-links">',
+                  'after' => '</nav>',
+                  'link_before' => '',
+                  'link_after' => '',
+                  'next_or_number' => 'number',
+                  'separator' => '',
+                )
+              );
+              ?>
+              <div class="entry-btn"><a class="btn" href="">btn</a></div>
+            </div><!-- /entry-body -->
 
-          <div id="toc_container">
-            <p class="toc_title">この記事のコンテンツ</p>
-            <ul class="toc_list">
-              <li><a href="#i">見出しが入ります</a>
-                <ul>
-                  <li><a href="#">見出しが入ります</a></li>
-                  <li><a href="#">見出しが入ります</a></li>
-                </ul>
-              </li>
-              <li><a href="#i">見出しが入ります</a>
-                <ul>
-                  <li><a href="#">見出しが入ります</a></li>
-                  <li><a href="#">見出しが入ります</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-
-          <h2>見出しが入ります</h2>
-          <p>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト<a href="#">テキストリンクテキストリンク</a>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
-          </p>
-          <h3>見出しが入ります</h3>
-          <p>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト<a href="#">テキストリンクテキストリンク</a>テキストテキストテキストテキストテキスト<strong>テキストボールドテキストボールド</strong>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
-          </p>
-          <h4>見出しが入ります</h4>
-          <p>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト<a href="#">テキストリンクテキストリンク</a>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
-          </p>
-          <h4>見出しが入ります</h4>
-          <p>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト<a href="#">テキストリンクテキストリンク</a>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
-          </p>
-          <div class="entry-btn"><a class="btn" href="">テキストテキスト</a></div><!-- /entry-btn -->
-
-        </div><!-- /entry-body -->
-
-
-        <div class="entry-tag-items">
-          <div class="entry-tag-head">タグ</div><!-- /entry-tag-head -->
-          <div class="entry-tag-item"><a href="">WordPress</a></div><!-- /entry-tag-item -->
-          <div class="entry-tag-item"><a href="">コーディング</a></div><!-- /entry-tag-item -->
-          <div class="entry-tag-item"><a href="">フリーランス</a></div><!-- /entry-tag-item -->
-        </div><!-- /entry-tag-items -->
+            <!-- entry-tag-items -->
+            <?php $post_tags = get_the_tags(); ?>
+            <div class="entry-tag-items">
+              <div class="entry-tag-head">タグ</div>
+              <?php if ($post_tags) : ?>
+                <?php foreach ($post_tags as $tag) : ?>
+                  <div class="entry-tag-item"><a href="<?php echo esc_url(get_tag_link($tag->term_id)); ?>">
+                      <?php echo esc_html($tag->name); ?>
+                    </a></div>
+                <?php endforeach; ?>
+              <?php endif; ?>
+            </div>
 
 
-        <div class="entry-related">
-          <div class="related-title">関連記事</div>
+            <div class="entry-related">
+              <div class="related-title">関連記事</div>
 
-          <div class="related-items">
+              <div class="related-items">
 
-            <a class="related-item" href="">
-              <div class="related-item-img"><img src="img/entry1.png" alt=""></div><!-- /related-item-img -->
-              <div class="related-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div><!-- /related-item-title -->
-            </a><!-- /related-item -->
+                <a class="related-item" href="">
+                  <div class="related-item-img"><img src="img/entry1.png" alt=""></div>
+                  <div class="related-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div>
+                </a>
 
-            <a class="related-item" href="">
-              <div class="related-item-img"><img src="img/entry1.png" alt=""></div><!-- /related-item-img -->
-              <div class="related-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div><!-- /related-item-title -->
-            </a><!-- /related-item -->
+              </div><!-- /related-items -->
+            </div><!-- /entry-related -->
 
-            <a class="related-item" href="">
-              <div class="related-item-img"><img src="img/entry1.png" alt=""></div><!-- /related-item-img -->
-              <div class="related-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div><!-- /related-item-title -->
-            </a><!-- /related-item -->
+          </article><!-- /entry -->
 
-            <a class="related-item" href="">
-              <div class="related-item-img"><img src="img/entry1.png" alt=""></div><!-- /related-item-img -->
-              <div class="related-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div><!-- /related-item-title -->
-            </a><!-- /related-item -->
-
-            <a class="related-item" href="">
-              <div class="related-item-img"><img src="img/entry1.png" alt=""></div><!-- /related-item-img -->
-              <div class="related-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div><!-- /related-item-title -->
-            </a><!-- /related-item -->
-
-            <a class="related-item" href="">
-              <div class="related-item-img"><img src="img/entry1.png" alt=""></div><!-- /related-item-img -->
-              <div class="related-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div><!-- /related-item-title -->
-            </a><!-- /related-item -->
-
-            <a class="related-item" href="">
-              <div class="related-item-img"><img src="img/entry1.png" alt=""></div><!-- /related-item-img -->
-              <div class="related-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div><!-- /related-item-title -->
-            </a><!-- /related-item -->
-
-            <a class="related-item" href="">
-              <div class="related-item-img"><img src="img/entry1.png" alt=""></div><!-- /related-item-img -->
-              <div class="related-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div><!-- /related-item-title -->
-            </a><!-- /related-item -->
-
-          </div><!-- /related-items -->
-        </div><!-- /entry-related -->
-
-      </article> <!-- /entry -->
+        <?php endwhile;
+    endif; ?>
     </main><!-- /primary -->
 
-    <!-- secondary -->
-    <aside id="secondary">
+    <?php get_sidebar(); ?>
 
-      <!-- widget -->
-      <div class="widget widget_text widget_custom_html">
-        <div class="widget-title">プロフィール</div>
-
-        <div class="wprofile">
-          <div class="wprofile-img"><img src="img/profile.png" alt=""></div>
-          <div class="wprofile-content">
-            <p>
-              テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
-            </p>
-          </div>
-          <!-- /wprofile-content -->
-          <nav class="wprofile-sns">
-            <div class="wprofile-sns-item m_twitter"><a href="" rel="noopener noreferrer" target="_blank"><i class="fab fa-twitter"></i></a></div>
-            <div class="wprofile-sns-item m_facebook"><a href="" rel="noopener noreferrer" target="_blank"><i class="fab fa-facebook-f"></i></a></div>
-            <div class="wprofile-sns-item m_instagram"><a href="" rel="noopener noreferrer" target="_blank"><i class="fab fa-instagram"></i></a></div>
-          </nav>
-        </div><!-- /wprofile -->
-      </div><!-- /widget -->
-
-
-      <!-- widget -->
-      <div class="widget widget_search">
-        <div class="widget-title">検索</div>
-        <!-- search-form -->
-        <form method="get" class="search-form" action="#">
-          <input type="search" class="search-field" value="" placeholder="キーワード" name="s" id="s">
-          <button type="submit" class="search-submit"><i class="fas fa-search"></i></button>
-        </form><!-- /search-form -->
-      </div><!-- /widget -->
-
-
-      <!-- widget -->
-      <div class="widget widget_popular">
-        <div class="widget-title">人気記事</div>
-
-        <div class="wpost-items m_ranking">
-
-          <!-- wpost-item -->
-          <a class="wpost-item" href="#">
-            <div class="wpost-item-img"><img src="img/entry2.png" alt=""></div>
-            <div class="wpost-item-body">
-              <div class="wpost-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div>
-            </div><!-- /wpost-item-body -->
-          </a><!-- /wpost-item -->
-
-          <!-- wpost-item -->
-          <a class="wpost-item" href="#">
-            <div class="wpost-item-img"><img src="img/entry1.png" alt=""></div>
-            <div class="wpost-item-body">
-              <div class="wpost-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div>
-            </div><!-- /wpost-item-body -->
-          </a><!-- /wpost-item -->
-
-          <!-- wpost-item -->
-          <a class="wpost-item" href="#">
-            <div class="wpost-item-img"><img src="img/entry3.png" alt=""></div>
-            <div class="wpost-item-body">
-              <div class="wpost-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div>
-            </div><!-- /wpost-item-body -->
-          </a><!-- /wpost-item -->
-
-          <!-- wpost-item -->
-          <a class="wpost-item" href="#">
-            <div class="wpost-item-img"><img src="img/entry4.png" alt=""></div>
-            <div class="wpost-item-body">
-              <div class="wpost-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div>
-            </div><!-- /wpost-item-body -->
-          </a><!-- /wpost-item -->
-
-          <!-- wpost-item -->
-          <a class="wpost-item" href="#">
-            <div class="wpost-item-img"><img src="img/entry5.png" alt=""></div>
-            <div class="wpost-item-body">
-              <div class="wpost-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div>
-            </div><!-- /wpost-item-body -->
-          </a><!-- /wpost-item -->
-
-        </div><!-- /wpost-items -->
-      </div><!-- /widget -->
-
-
-
-      <!-- widget -->
-      <div class="widget widget_recent">
-        <div class="widget-title">新着記事</div>
-
-        <div class="wpost-items">
-
-          <!-- wpost-item -->
-          <a class="wpost-item" href="#">
-            <div class="wpost-item-img"><img src="img/entry7.png" alt=""></div>
-            <div class="wpost-item-body">
-              <div class="wpost-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div>
-            </div><!-- /wpost-item-body -->
-          </a><!-- /wpost-item -->
-
-          <!-- wpost-item -->
-          <a class="wpost-item" href="#">
-            <div class="wpost-item-img"><img src="img/entry6.png" alt=""></div>
-            <div class="wpost-item-body">
-              <div class="wpost-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div>
-            </div><!-- /wpost-item-body -->
-          </a><!-- /wpost-item -->
-
-          <!-- wpost-item -->
-          <a class="wpost-item" href="#">
-            <div class="wpost-item-img"><img src="img/entry10.png" alt=""></div>
-            <div class="wpost-item-body">
-              <div class="wpost-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div>
-            </div><!-- /wpost-item-body -->
-          </a><!-- /wpost-item -->
-
-          <!-- wpost-item -->
-          <a class="wpost-item" href="#">
-            <div class="wpost-item-img"><img src="img/entry7.png" alt=""></div>
-            <div class="wpost-item-body">
-              <div class="wpost-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div>
-            </div><!-- /wpost-item-body -->
-          </a><!-- /wpost-item -->
-
-          <!-- wpost-item -->
-          <a class="wpost-item" href="#">
-            <div class="wpost-item-img"><img src="img/entry9.png" alt=""></div>
-            <div class="wpost-item-body">
-              <div class="wpost-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div>
-            </div><!-- /wpost-item-body -->
-          </a><!-- /wpost-item -->
-
-        </div><!-- /wpost-items -->
-      </div><!-- /widget -->
-
-      <div class="widget widget_archive">
-        <div class="widget-title">アーカイブ</div>
-        <ul>
-          <li><a href="#">テキストテキストテキスト</a></li>
-          <li><a href="#">テキストテキストテキスト</a></li>
-          <li><a href="#">テキストテキストテキスト</a></li>
-        </ul>
-      </div><!-- /widget -->
-
-    </aside><!-- secondary -->
 
 
   </div><!-- /inner -->
 </div><!-- /content -->
 
-<!-- footer -->
 <?php get_footer(); ?>
+
+
+
+
+
+<!---------   to do    --------------
+                post_class()
+                get_the_category()
+                get_category_link()
+                get_the_modified_time()
+                the_content()
+                wp_link_pages()
+                ------------------------------------>

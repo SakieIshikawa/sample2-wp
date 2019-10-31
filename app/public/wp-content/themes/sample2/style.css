@@ -626,6 +626,8 @@ select:focus {
 	margin-right: 8px;
 }
 
+
+/* Font Awesome */
 .drawer-nav li:nth-child(1) > a::before {
 	content: "\f015";
 }

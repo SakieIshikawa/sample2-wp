@@ -8,7 +8,7 @@
   <meta name="format-detection" content="telephone=no">
 
   <title>sample2</title>
-  <meta name="description" content="">
+  <meta name="description" content="sample2">
 
   <meta property="og:title" content="sample2">
   <meta property="og:type" content="website">
@@ -26,7 +26,7 @@
 <body>
   <header id="header">
     <div class="inner">
-      <!-- トップページ（ホームとフロントページ）にだけ表示する場合とその他 -->
+      <!-- トップページ（ホームとフロントページ）にだけ表示する場合の表示(.h1)とその他の表示(.div) -->
       <?php if (is_home() || is_front_page()) : ?>
         <h1 class="header-logo"><a href="<?php echo esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a></h1>
       <?php else : ?>
@@ -34,7 +34,7 @@
       <?php endif; ?>
       <div class="header-sub"><?php bloginfo('description'); ?></div>
 
-      <!-- drawer -->
+      <!-- drawer (sp用メニュー) -->
       <div class="drawer">
         <div class="drawer-icon">
           <span class="drawer-open"><i class="fas fa-bars"></i></span>
@@ -45,10 +45,9 @@
         <div class="drawer-content">
           <?php
           wp_nav_menu(
-            //.drawer-navを置き換えて、sp用メニューを動的に表示する
             array(
               'depth' => 1,
-              'theme_location' => 'drawer', //グローバルメニューをここに表示すると指定
+              'theme_location' => 'drawer', //drawer menuの表示場所の指定
               'container' => 'nav',  //  ulをラップするタグ(container)
               'container_class' => 'drawer-nav',  // ラップしたcontainerのclass名
               'menu_class' => 'drawer-list',
@@ -62,15 +61,14 @@
   </header><!-- /header -->
 
 
-  <!-- header-nav -->
+  <!-- header-nav (pc用 menu) -->
   <nav class="header-nav">
     <div class="inner">
       <?php
       wp_nav_menu(
-        //.header-listを置き換えて、PC用メニューを動的に表示する
         array(
           'depth' => 1,
-          'theme_location' => 'global', //グローバルメニューをここに表示すると指定
+          'theme_location' => 'global',
           'container' => 'false',
           'menu_class' => 'header-list',
         )

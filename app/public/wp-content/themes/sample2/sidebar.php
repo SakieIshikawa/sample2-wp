@@ -140,4 +140,12 @@
 	    </ul>
 	  </div><!-- /widget -->
 
+
+
+	  <p>月別</p>
+	  <ul>
+	    <?php wp_get_archives(); ?>
+	  </ul>
+
+
 	</aside><!-- secondary -->

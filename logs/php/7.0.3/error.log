@@ -31,3 +31,12 @@ Stack trace:
 #2 /app/public/index.php(17): require('/app/public/wp-...')
 #3 {main}
   thrown in /app/public/wp-content/themes/sample2/category.php on line 40
+[31-Oct-2019 04:26:20 UTC] PHP Parse error:  syntax error, unexpected end of file, expecting elseif (T_ELSEIF) or else (T_ELSE) or endif (T_ENDIF) in /app/public/wp-content/themes/sample2/category.php on line 95
+[31-Oct-2019 04:26:23 UTC] PHP Parse error:  syntax error, unexpected end of file, expecting elseif (T_ELSEIF) or else (T_ELSE) or endif (T_ENDIF) in /app/public/wp-content/themes/sample2/category.php on line 95
+[31-Oct-2019 04:27:49 UTC] PHP Parse error:  syntax error, unexpected end of file, expecting elseif (T_ELSEIF) or else (T_ELSE) or endif (T_ENDIF) in /app/public/wp-content/themes/sample2/category.php on line 95
+[31-Oct-2019 04:31:51 UTC] PHP Parse error:  syntax error, unexpected end of file, expecting elseif (T_ELSEIF) or else (T_ELSE) or endif (T_ENDIF) in /app/public/wp-content/themes/sample2/category.php on line 93
+[31-Oct-2019 07:06:34 UTC] PHP Parse error:  syntax error, unexpected '&' in /app/public/wp-content/themes/sample2/functions.php on line 46
+[31-Oct-2019 07:06:40 UTC] PHP Parse error:  syntax error, unexpected end of file in /app/public/wp-content/themes/sample2/functions.php on line 103
+[31-Oct-2019 07:06:42 UTC] PHP Parse error:  syntax error, unexpected end of file in /app/public/wp-content/themes/sample2/functions.php on line 103
+[31-Oct-2019 07:16:05 UTC] PHP Parse error:  syntax error, unexpected '&' in /app/public/wp-content/themes/sample2/functions.php on line 47
+[31-Oct-2019 07:16:13 UTC] PHP Parse error:  syntax error, unexpected end of file in /app/public/wp-content/themes/sample2/functions.php on line 104

@@ -10,4 +10,5 @@ INSERT INTO `wp_terms` VALUES
 (6,"category3","category3",0),
 (7,"ドロワーメニュー","%e3%83%89%e3%83%ad%e3%83%af%e3%83%bc%e3%83%a1%e3%83%8b%e3%83%a5%e3%83%bc",0),
 (8,"ヘッダーメニュー","%e3%83%98%e3%83%83%e3%83%80%e3%83%bc%e3%83%a1%e3%83%8b%e3%83%a5%e3%83%bc",0),
-(9,"footer menu","footer-menu",0);
+(9,"footer menu","footer-menu",0),
+(10,"html","html",0);
