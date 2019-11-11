@@ -1,3 +1,5 @@
+<?php set_post_views(get_the_ID()); ?>
+
 <?php get_header(); ?>
 
 <!-- content -->
@@ -7,82 +9,74 @@
     <!-- primary -->
     <main id="primary">
 
-      <!-- breadcrumb (パンくずplug) -->
-      <?php if (function_exists('bcn_display')) : ?>
-        <div class="breadcrumb">
-          <?php
-          if (function_exists('bcn_display')) {
-            bcn_display();
-          }
-          ?>
-        </div><!-- /breadcrumb -->
-      <?php endif; ?>
+      <!-- breadcrumb パンくず -->
+      <div class="breadcrumb">
+        <?php
+        if (function_exists('bcn_display')) {
+          bcn_display();
+        }
+        ?>
+      </div>
 
-
-      <?php if (have_posts()) :   //もし投稿を表示できれば、一覧に存在している投稿ごとそれぞれに以下の処理を行う
+      <?php if (have_posts()) :
         while (have_posts()) :
-          the_post();
-          ?>
+          the_post(); ?>
 
           <!-- entry -->
           <article class="entry">
 
             <!-- entry-header -->
             <div class="entry-header">
-              <?php
-              // カテゴリー１つ目の名前を表示
-              $category = get_the_category();
-              if ($category[0]) : ?>
+              <?php $category = get_the_category();
+                  if ($category[0]) : ?>
                 <div class="entry-label">
-                  <a href="<?php echo esc_url(get_category_link($category[0]->term_id)); ?>">
-                    <?php echo $category[0]->cat_name; ?>
-                  </a></div>
+                  <a href="<?php echo esc_url(get_category_link($category[0]->term_id)); ?>"><?php echo $category[0]->cat_name; ?></a>
+                </div>
               <?php endif; ?>
               <h1 class="entry-title"><?php the_title(); ?></h1>
 
               <div class="entry-meta">
-                <time class="entry-published" datetime="<?php the_time('d'); ?>">公開日<?php the_time('Y年n月j日'); ?></time>
-                <!-- if文 (公開日と最終更新日が違った場合) -->
-                <?php if (get_the_modified_time('Y-m-d') !== get_the_time('Y-m-d')) : ?>
-                  <time class="entry-updated" datetime="<?php get_the_modified_time('d'); ?>">最終更新日<?php the_time('Y年n月j日'); ?></time>
+                <time class="entry-published" datetime="<?php the_time('d'); ?>"><?php the_time('Y年n月j日'); ?></time>
+                <?php if (get_the_time('Y-m-d') !== get_the_modified_time('Y-m-d')) : ?>
+                  <time class="entry-updated" datetime="<?php the_modified_time('d'); ?>">最終更新日<?php the_modified_time('Y年n月j日'); ?></time>
                 <?php endif; ?>
               </div>
 
               <div class="entry-img">
                 <?php if (has_post_thumbnail()) {
-                  the_post_thumbnail('large');
-                } else {
-                  echo '<img src="' . esc_url(get_template_directory_uri()) . '/img/noimg.png" alt="">';
-                } ?>
+                      the_post_thumbnail('large');
+                    } else {
+                      echo '<img src="' . esc_url(get_template_directory_uri()) . '/img/noimg.png" alt="">';
+                    } ?>
               </div>
             </div><!-- /entry-header -->
 
+            <!-- entry-body -->
             <div class="entry-body">
-              <p><?php the_content(); ?></p>
-              <?php   //改ページを有効にするための記述
-              wp_link_pages(
-                array(
-                  'before' => '<nav class="entry-links">',
-                  'after' => '</nav>',
-                  'link_before' => '',
-                  'link_after' => '',
-                  'next_or_number' => 'number',
-                  'separator' => '',
-                )
-              );
-              ?>
-              <div class="entry-btn"><a class="btn" href="">btn</a></div>
+              <?php the_content(); ?>
+              <?php wp_link_pages(
+                    array(
+                      'before' => '<nav class="entry-links">',
+                      'after' => '</nav>',
+                      'link_before' => '',
+                      'link_after' => '',
+                      'next_or_number' => 'number',
+                      'separator' => '',
+                    )
+                  );
+                  ?>
+              <div class="entry-btn"><a class="btn" href="">button</a></div><!-- /entry-btn -->
             </div><!-- /entry-body -->
 
-            <!-- entry-tag-items -->
             <?php $post_tags = get_the_tags(); ?>
+            <!-- post_tagsに取得したtagを代入 -->
             <div class="entry-tag-items">
               <div class="entry-tag-head">タグ</div>
               <?php if ($post_tags) : ?>
+                <!-- もしpost_tagsがあれば -->
                 <?php foreach ($post_tags as $tag) : ?>
-                  <div class="entry-tag-item"><a href="<?php echo esc_url(get_tag_link($tag->term_id)); ?>">
-                      <?php echo esc_html($tag->name); ?>
-                    </a></div>
+                  <!-- $tagをそれぞれ出力 -->
+                  <div class="entry-tag-item"><a href="<?php echo esc_url(get_tag_link($tag->term_id)); ?>"><?php echo esc_html($tag->name); ?></a></div>
                 <?php endforeach; ?>
               <?php endif; ?>
             </div>
@@ -91,40 +85,55 @@
             <div class="entry-related">
               <div class="related-title">関連記事</div>
 
-              <div class="related-items">
+              <?php if (has_category()) {
+                    $post_cats = get_the_category();
+                    //所属カテゴリーのIDリストを作っておく
+                    $cat_ids = array();
+                    foreach ($post_cats as $cat) {
+                      $cat_ids[] = $cat->term_id;
+                    }
+                  }
 
-                <a class="related-item" href="">
-                  <div class="related-item-img"><img src="img/entry1.png" alt=""></div>
-                  <div class="related-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div>
-                </a>
+                  $myposts = get_posts(array(
+                    'post_type' => 'post',
+                    'posts_per_page' => '8',
+                    'post__not_in' => array($post->ID), // 表示中の投稿を除外する
+                    'category__in' => $cat_ids, // この投稿と同じカテゴリーに属する投稿の中から
+                    'orderby' => 'rand' // ランダムに
+                  ));
+                  if ($myposts) : ?>
 
-              </div><!-- /related-items -->
+                <div class="related-items">
+                  <?php foreach ($myposts as $post) :  // my_posts(記事の一覧）の内の1件の投稿記事を$postへ
+                          setup_postdata($post);       // 今からこの記事を使うとWordPressに宣言 
+                          ?>
+                    <a class="related-item" href="<?php the_permalink(); ?>">
+                      <div class="related-item-img">
+                        <?php if (has_post_thumbnail()) {
+                                  the_post_thumbnail('large');
+                                } else {
+                                  echo '<img src="' . esc_url(get_template_directory_uri()) . '/img/noimg.png" alt="">';
+                                } ?>
+                      </div>
+                      <div class="related-item-title"><?php the_title(); ?></div>
+                    </a>
+
+                  <?php endforeach;
+                        wp_reset_postdata(); // グローバル変数である$postをreset
+                        ?>
+                </div>
+              <?php endif; ?>
             </div><!-- /entry-related -->
 
-          </article><!-- /entry -->
+          </article> <!-- /entry -->
 
-        <?php endwhile;
-    endif; ?>
+      <?php endwhile;
+      endif; ?>
     </main><!-- /primary -->
 
     <?php get_sidebar(); ?>
-
-
 
   </div><!-- /inner -->
 </div><!-- /content -->
 
 <?php get_footer(); ?>
-
-
-
-
-
-<!---------   to do    --------------
-                post_class()
-                get_the_category()
-                get_category_link()
-                get_the_modified_time()
-                the_content()
-                wp_link_pages()
-                ------------------------------------>

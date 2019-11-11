@@ -10,3 +10,13 @@
 [Thu Oct 31 05:21:57.711913 2019] [proxy_fcgi:error] [pid 203:tid 140454255376128] (22)Invalid argument: [client 172.17.0.1:40958] AH01075: Error dispatching request to : (passing brigade to output filters), referer: http://sample2.local/wp-admin/plugin-install.php?s=table&tab=search&type=term
 [Thu Oct 31 05:22:14.351292 2019] [proxy_fcgi:error] [pid 204:tid 140454154663680] [client 172.17.0.1:40978] AH01068: Got bogus version 97, referer: http://sample2.local/wp-admin/plugin-install.php?s=&tab=search&type=term
 [Thu Oct 31 05:22:14.351627 2019] [proxy_fcgi:error] [pid 204:tid 140454154663680] (22)Invalid argument: [client 172.17.0.1:40978] AH01075: Error dispatching request to : (passing brigade to output filters), referer: http://sample2.local/wp-admin/plugin-install.php?s=&tab=search&type=term
+[Fri Nov 01 08:29:33.871690 2019] [mpm_event:notice] [pid 248:tid 140194147374976] AH00489: Apache/2.4.10 (Debian) configured -- resuming normal operations
+[Fri Nov 01 08:29:33.871784 2019] [core:notice] [pid 248:tid 140194147374976] AH00094: Command line: '/usr/sbin/apache2'
+[Tue Nov 05 07:53:08.560237 2019] [mpm_event:notice] [pid 104:tid 140398553474944] AH00489: Apache/2.4.10 (Debian) configured -- resuming normal operations
+[Tue Nov 05 07:53:08.568687 2019] [core:notice] [pid 104:tid 140398553474944] AH00094: Command line: '/usr/sbin/apache2'
+[Wed Nov 06 09:10:40.009838 2019] [mpm_event:notice] [pid 213:tid 140187757381504] AH00489: Apache/2.4.10 (Debian) configured -- resuming normal operations
+[Wed Nov 06 09:10:40.010288 2019] [core:notice] [pid 213:tid 140187757381504] AH00094: Command line: '/usr/sbin/apache2'
+[Thu Nov 07 09:41:10.054022 2019] [mpm_event:notice] [pid 251:tid 139909410477952] AH00489: Apache/2.4.10 (Debian) configured -- resuming normal operations
+[Thu Nov 07 09:41:10.054104 2019] [core:notice] [pid 251:tid 139909410477952] AH00094: Command line: '/usr/sbin/apache2'
+[Mon Nov 11 09:46:38.896985 2019] [mpm_event:notice] [pid 105:tid 140610217404288] AH00489: Apache/2.4.10 (Debian) configured -- resuming normal operations
+[Mon Nov 11 09:46:38.898540 2019] [core:notice] [pid 105:tid 140610217404288] AH00094: Command line: '/usr/sbin/apache2'

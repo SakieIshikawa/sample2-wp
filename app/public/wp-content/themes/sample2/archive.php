@@ -5,7 +5,7 @@
 <div id="content">
   <div class="inner">
 
-    <!-- primary -->
+  <!-- primary -->
     <main id="primary">
 
       <!-- breadcrumb パンくず -->

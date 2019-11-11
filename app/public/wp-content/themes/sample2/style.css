@@ -525,7 +525,7 @@ select:focus {
 
 .btn {
 	-webkit-appearance: none;
-	background-color: #01b3a7;
+	background-color: #ff69b4;
 	background-image: none;
 	border: none;
 	border-radius: 3px;
@@ -788,7 +788,7 @@ select:focus {
 }
 
 .entry-label a {
-	background: #d81f32;
+	background: #ff69b4;
 	color: #fff;
 	display: block;
 	font-size: 12px;
@@ -1970,11 +1970,11 @@ select:focus {
 	position: fixed;
 	right: 28px;
 	z-index: 30;
+	border-radius: 50%;
+	background-color: #ff1493
 }
 
 .floating a {
-	background: #6a6a6a;
-	border-radius: 50%;
 	color: #fff;
 	display: block;
 	font-size: 20px;
@@ -1983,6 +1983,9 @@ select:focus {
 	text-align: center;
 	text-decoration: none;
 	width: 60px;
+	background-color: #ff1493;
+	opacity: 0.8;
+	border-radius: 50%;
 }
 
 .floating a:hover {
